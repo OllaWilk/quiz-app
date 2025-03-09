@@ -13,6 +13,7 @@ export const Quiz = () => {
       return [...prevUserAnswer, selectedAnswer];
     });
   };
+
   return (
     <div id='quiz'>
       <div id='question'>
