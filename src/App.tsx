@@ -1,7 +1,13 @@
+import { Header } from './component/Header/Header';
+import { Quiz } from './component/Quiz/Quiz';
+
 export const App = () => {
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <>
+      <Header />
+      <main>
+        <Quiz />
+      </main>
+    </>
   );
 };
