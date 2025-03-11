@@ -25,7 +25,7 @@ export const Quiz = () => {
   );
 
   if (quizIsComplete) {
-    return <Summary />;
+    return <Summary userAnswers={userAnswers} />;
   }
   return (
     <div id='quiz'>
