@@ -23,6 +23,16 @@ export const Question = ({
     isCorrect: null,
   });
 
+  let timer = 10000;
+
+  if (answer.selectedAnswer) {
+    timer = 1000;
+  }
+
+  if (answer.isCorrect !== null) {
+    timer = 2000;
+  }
+
   const handleSelectAnswer = function (answer: string) {
     setAnswer({
       selectedAnswer: answer,
@@ -37,7 +47,7 @@ export const Question = ({
 
       setTimeout(() => {
         onSelectedAnswer(answer);
-      }, 500);
+      }, 2000);
     }, 1000);
   };
 
@@ -50,7 +60,12 @@ export const Question = ({
 
   return (
     <div id='question'>
-      <QuestionTimer timeout={10000} onTimeOut={onSkipAnswer} />
+      <QuestionTimer
+        key={timer}
+        timeout={timer}
+        onTimeOut={answer.selectedAnswer === '' ? onSkipAnswer : null}
+        mode={answerState}
+      />
       <h2>{QUESTIONS[questionIndex].text}</h2>
       <Answers
         answers={QUESTIONS[questionIndex].answers}

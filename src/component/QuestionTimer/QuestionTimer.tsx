@@ -3,17 +3,18 @@ import './QuestionTimer.scss';
 
 interface Props {
   timeout: number;
-  onTimeOut: () => void;
+  mode: string;
+  onTimeOut: (() => void) | null;
 }
 
-export const QuestionTimer = ({ timeout, onTimeOut }: Props) => {
+export const QuestionTimer = ({ timeout, onTimeOut, mode }: Props) => {
   const [remainingTime, setRemainingTime] = useState<number>(timeout);
 
   useEffect(() => {
-    const timer = setTimeout(onTimeOut, timeout);
-    return () => {
-      clearTimeout(timer);
-    };
+    if (onTimeOut) {
+      const timer = setTimeout(onTimeOut, timeout);
+      return () => clearTimeout(timer);
+    }
   }, [timeout, onTimeOut]);
 
   useEffect(() => {
@@ -26,5 +27,12 @@ export const QuestionTimer = ({ timeout, onTimeOut }: Props) => {
     };
   }, []);
 
-  return <progress id='question-time' max={timeout} value={remainingTime} />;
+  return (
+    <progress
+      id='question-time'
+      max={timeout}
+      value={remainingTime}
+      className={mode}
+    />
+  );
 };
